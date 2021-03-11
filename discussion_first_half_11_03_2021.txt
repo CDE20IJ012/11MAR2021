@@ -1,0 +1,25 @@
+To revise:-
+
+Q What is Hibernate?
+A ORM Tool
+-----------------------------------------------------------------------------------------------------------
+Q Dependencies to be added
+A 1) Hibernate core
+  2) MySQL driver
+-------------------------------------------------------------------------------------------------
+Q Two xml files
+  1) Configuration  (hibernate.cfg.xml)
+  2) Mapping/Mapper (student.hbm.xml)
+-------------------------------------------------------------------------------------------
+ We created the database first.
+---------------------------------------------------------------------------------------
+Q The classes
+   Configuration,SessionFactory, ServiceRegistry, Session, Transaction
+----------------------------------------------------------------------------------------------------------
+Plugin for hibernate with eclipse/STS
+
+Help====> Eclipse Market Place
+In find box search for Hibernate Tool and click go button.
+Certain tools are shown but will go for JBOSS Tools and click on the install button
+ Hibernate Tools only
+After you install the plugin for hibernate it will ask to restart the STS/eclipse.
