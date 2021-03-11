@@ -1,0 +1,169 @@
+JPA====> Java Persistence API
+https://www.tutorialspoint.com/jpa/index.htm
+Java Persistence API is a collection of classes and methods to persistently store the vast amounts of data into a database.
+
+Any enterprise application performs database operations by storing and retrieving vast amounts of data. Despite all the available technologies for storage management, application developers normally struggle to perform database operations efficiently.
+
+Generally, Java developers use lots of code, or use the proprietary framework to interact with the database, whereas using JPA, the burden of interacting with the database reduces significantly. It forms a bridge between object models (Java program) and relational models (database program).
+
+Mismatches between relational and object models
+Relational objects are represented in a tabular format, while object models are represented in an interconnected graph of object format. While storing and retrieving an object model from a relational database, some mismatch occurs due to the following reasons:
+
+Granularity : Object model has more granularity than relational model.
+
+Subtypes : Subtypes (means inheritance) are not supported by all types of relational databases.
+
+Identity : Like object model, relational model does not expose identity while writing equality.
+
+Associations : Relational models cannot determine multiple relationships while looking into an object domain model.
+
+Data navigation : Data navigation between objects in an object network is different in both models.
+------------
+What is JPA?
+Java Persistence API is a collection of classes and methods to persistently store the vast amounts of data into a database 
+---------------------------------------
+where to use JPA?
+To reduce the burden of writing codes for relational object management, a programmer follows the ‘JPA Provider’ framework, which allows easy interaction with database instance. Here the required framework is taken over by JPA.
+-------------------------------------------------------------------------------------------------------------
+JPA Providers
+JPA is an open source API, therefore various enterprise vendors such as Oracle, Redhat, Eclipse, etc. provide new products by adding the JPA persistence flavor in them. Some of these products include:
+
+Hibernate, Eclipselink, Toplink, Spring Data JPA, etc.
+--------------------------------------------------------------------------------------------------------------
+JPA =====> The specification/rule ( Interfaces )
+Hibernate=====> Implementation 
+
+With the usage of JPA for the Entity/Domain/Model class. We have started using annotations.
+
+---------------------------------------------------------------------------------------------------------------Change in hibernate.cfg.xml
+In place of mapping resource
+ <mapping resource="Book.hbm.xml"/>
+
+
+we have
+<mapping class="com.cts.demo.model.Book"/>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">password@123</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bookDB</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property> 
+       <mapping class="com.cts.demo.model.Book"/>
+    </session-factory>
+</hibernate-configuration>
+-
+--------------------------------------------------------------------------------------------------------------
+
+package com.cts.demo.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="book_details")
+public class Book {
+	@Id
+	@GeneratedValue
+	@Column(name="id")
+	private int bookId;
+	@Column(name="book_title")
+	private String title;
+	@Column(name="author_name")
+	private String author;
+	@Column(name="book_price")
+	private float price;
+	
+	
+	public Book() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Book(int bookId, String title, String author, float price) {
+		super();
+		this.bookId = bookId;
+		this.title = title;
+		this.author = author;
+		this.price = price;
+	}
+
+	public int getBookId() {
+		return bookId;
+	}
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((author == null) ? 0 : author.hashCode());
+		result = prime * result + bookId;
+		result = prime * result + Float.floatToIntBits(price);
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (author == null) {
+			if (other.author != null)
+				return false;
+		} else if (!author.equals(other.author))
+			return false;
+		if (bookId != other.bookId)
+			return false;
+		if (Float.floatToIntBits(price) != Float.floatToIntBits(other.price))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "Book [bookId=" + bookId + ", title=" + title + ", author=" + author + ", price=" + price + "]";
+	}
+	
+
+}
+
+
